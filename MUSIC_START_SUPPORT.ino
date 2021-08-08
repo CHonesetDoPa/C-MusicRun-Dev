@@ -1,5 +1,1 @@
-void music_start() {
-  digitalWrite(3, HIGH);
-  delay(1000);
-  // TODO: Implement actual music player
-}
+// IT WILL NOT USE IN THE PRIVIEW VERSION,PLEASE USE MUSIC_START_SUPPORT.h INSTEAD
