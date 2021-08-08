@@ -1,3 +1,6 @@
+// VSCode fix?
+#include <Arduino.h>
+
 // Dependencies
 #include <TuyaWifi.h>
 
@@ -93,91 +96,107 @@ void music_start() {
 }
 void loop() {
 
+  // Network Connection Mode
   if (digitalRead(7) == LOW) {
     delay(80);
     if (digitalRead(7) == LOW) {
       my_device.mcu_set_wifi_mode(SMART_CONFIG);
     }
   }
+
+  my_device.uart_service(); // Mysterious black box that updates mem1-7 (?)
+
   // Process physical keys and beeps if pressed
-  if (digitalRead(A0) == LOW) {
-
-  } else if (digitalRead(13) == LOW) {
-    int i = 0;
-    while (digitalRead(13) == LOW) {
-      for (int i = (i); i <= (i + 1); i = i + (1)) {
-        tone(5, 532);
-        digitalWrite(3, HIGH);
-        mem1 = true;
-        my_device.mcu_dp_update(DPID_SWITCH1, mem1, 1);
-      }
-    }
-    mem1 = false;
-    my_device.mcu_dp_update(DPID_SWITCH1, mem1, 1);
-  } else if (digitalRead(12) == LOW) {
-    tone(5, 587);
-    digitalWrite(3, HIGH);
-    mem2 = true;
-    my_device.mcu_dp_update(DPID_SWITCH2, mem2, 1);
-  } else if (digitalRead(11) == LOW) {
-    tone(5, 659);
-    digitalWrite(3, HIGH);
-    mem3 = true;
-    my_device.mcu_dp_update(DPID_SWITCH3, mem3, 1);
-  } else if (digitalRead(10) == LOW) {
-    tone(5, 698);
-    digitalWrite(3, HIGH);
-    mem4 = true;
-    my_device.mcu_dp_update(DPID_SWITCH4, mem4, 1);
-  } else if (digitalRead(9) == LOW) {
-    tone(5, 784);
-    digitalWrite(3, HIGH);
-    mem5 = true;
-    my_device.mcu_dp_update(DPID_SWITCH5, mem5, 1);
-  } else if (digitalRead(8) == LOW) {
-    tone(5, 880);
-    digitalWrite(3, HIGH);
-    mem6 = true;
-    my_device.mcu_dp_update(DPID_SWITCH6, mem6, 1);
-  } else if (digitalRead(6) == LOW) {
-    tone(5, 988);
-    digitalWrite(3, HIGH);
-    mem6 = true;
-    my_device.mcu_dp_update(DPID_SWITCH7, mem7, 1);
-  } else if (mem1 == true) {
-    while (mem1 == true) {
-    }
-  } else if (mem2 == true) {
-    while (mem2 == true) {
-    }
-  } else if (mem3 == true) {
-    while (mem3 == true) {
-    }
-  } else if (mem4 == true) {
-    while (mem4 == true) {
-    }
-  } else if (mem5 == true) {
-    while (mem5 == true) {
-    }
-  } else if (mem6 == true) {
-    while (mem6 == true) {
-    }
-  } else if (mem7 == true) {
-    while (mem7 == true) {
-    }
-  } else {
-    noTone(5);
-    dp_update_all;
-
+  if (digitalRead(A0) == LOW)
+  {
+    // Do nothing, TODO: Adding functionality for the key 0
   }
-
-  my_device.uart_service();
+  else if (digitalRead(13) == LOW) 
+  {
+    tone(5, 532); // C5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(12) == LOW) {
+    tone(5, 587); //D5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(11) == LOW) {
+    tone(5, 659); // E5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(10) == LOW) {
+    tone(5, 698); // F5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(9) == LOW) {
+    tone(5, 784); // G5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(8) == LOW) {
+    tone(5, 880); // A5
+    digitalWrite(3, HIGH);
+  }
+  else if (digitalRead(6) == LOW) {
+    tone(5, 988); // B5
+    digitalWrite(3, HIGH);
+  }
+  else
+  {
+    noTone(5);
+  }
 
   // TODO: Implement remote key presses via Tuya
 
-  // According to SDK's example 'start.ino', there should be a Pin7. When pressed, the device
-  // enters 'Connection Network Mode', but for simplicity, that won't be implemented here.
-  // Go ahead and copy/paste the code for 'Connection Network Mode' here if you want.
+  /* Let's first rollback to the original
+  // Process Tuya IoT app input
+  if (mem1 == true)
+  {
+    while (mem1 == true)
+    {
+    }
+  }
+  else if (mem2 == true)
+  {
+    while (mem2 == true)
+    {
+    }
+  }
+  else if (mem3 == true)
+  {
+    while (mem3 == true)
+    {
+    }
+  }
+  else if (mem4 == true)
+  {
+    while (mem4 == true)
+    {
+    }
+  }
+  else if (mem5 == true)
+  {
+    while (mem5 == true)
+    {
+    }
+  }
+  else if (mem6 == true)
+  {
+    while (mem6 == true)
+    {
+    }
+  }
+  else if (mem7 == true)
+  {
+    while (mem7 == true)
+    {
+    }
+  }
+  else  // Oh yes, we are becoming YandereDev
+  {
+    dp_update_all();  // I don't think this is necessary, since my_device.uart_services() already deals with this (?)
+    // mem1-7 are only app *inputs*, we don't need to update those in here
+  }  
+  */
 }
 
 // Here are some Tuya functions, god I miss Object Oriented Programming and Python
