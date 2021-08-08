@@ -192,7 +192,7 @@ void loop() {
   }
   else  // Oh yes, we are becoming YandereDev
   {
-    noTone(5)
+    noTone(5);
     //dp_update_all();  // I don't think this is necessary, since my_device.uart_services() already deals with this (?)
     // mem1-7 are only app *inputs*, we don't need to update those in here
   }  
