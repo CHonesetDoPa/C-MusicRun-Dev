@@ -95,6 +95,7 @@ void music_start() {
   // TODO: Implement actual music player
 }
 void loop() {
+  my_device.uart_service(); // Mysterious black box that updates mem1-7 (?)
 
   // Network Connection Mode
   if (digitalRead(7) == LOW) {
@@ -103,8 +104,6 @@ void loop() {
       my_device.mcu_set_wifi_mode(SMART_CONFIG);
     }
   }
-
-  my_device.uart_service(); // Mysterious black box that updates mem1-7 (?)
 
   // Process physical keys and beeps if pressed
   if (digitalRead(A0) == LOW)
@@ -117,7 +116,7 @@ void loop() {
     digitalWrite(3, HIGH);
   }
   else if (digitalRead(12) == LOW) {
-    tone(5, 587); //D5
+    tone(5, 587); // D5
     digitalWrite(3, HIGH);
   }
   else if (digitalRead(11) == LOW) {
@@ -146,57 +145,57 @@ void loop() {
   }
 
   // TODO: Implement remote key presses via Tuya
-
-  /* Let's first rollback to the original
   // Process Tuya IoT app input
-  if (mem1 == true)
+  /*
+    mem1 --> C5
+    mem2 --> D5
+    mem3 --> E5
+    mem4 --> F5
+    mem5 --> G5
+    mem6 --> A5
+    mem7 --> B5
+  */
+  if (mem1 == true) // C5
   {
-    while (mem1 == true)
-    {
-    }
+    tone(5, 532); // C5
+    digitalWrite(3, HIGH);
   }
-  else if (mem2 == true)
+  else if (mem2 == true)  // D5
   {
-    while (mem2 == true)
-    {
-    }
+    tone(5, 587); // D5
+    digitalWrite(3, HIGH);
   }
-  else if (mem3 == true)
+  else if (mem3 == true)  // E5
   {
-    while (mem3 == true)
-    {
-    }
+    tone(5, 659); // E5
+    digitalWrite(3, HIGH);
   }
-  else if (mem4 == true)
+  else if (mem4 == true)  // F5
   {
-    while (mem4 == true)
-    {
-    }
+    tone(5, 698); // F5
+    digitalWrite(3, HIGH);
   }
-  else if (mem5 == true)
+  else if (mem5 == true)  // G5
   {
-    while (mem5 == true)
-    {
-    }
+    tone(5, 784); // G5
+    digitalWrite(3, HIGH);
   }
-  else if (mem6 == true)
+  else if (mem6 == true)  // A5
   {
-    while (mem6 == true)
-    {
-    }
+    tone(5, 880); // A5
+    digitalWrite(3, HIGH);
   }
-  else if (mem7 == true)
+  else if (mem7 == true)  // B5
   {
-    while (mem7 == true)
-    {
-    }
+    tone(5, 988); // B5
+    digitalWrite(3, HIGH);
   }
   else  // Oh yes, we are becoming YandereDev
   {
-    dp_update_all();  // I don't think this is necessary, since my_device.uart_services() already deals with this (?)
+    noTone(5)
+    //dp_update_all();  // I don't think this is necessary, since my_device.uart_services() already deals with this (?)
     // mem1-7 are only app *inputs*, we don't need to update those in here
   }  
-  */
 }
 
 // Here are some Tuya functions, god I miss Object Oriented Programming and Python
