@@ -9,6 +9,7 @@
 #define DPID_SWITCH5 105
 #define DPID_SWITCH6 106
 #define DPID_SWITCH7 107
+#define DPID_STRING1 108
 
 unsigned char dp_array[][2] =
 {
